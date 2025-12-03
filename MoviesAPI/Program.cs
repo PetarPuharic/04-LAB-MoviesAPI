@@ -1,3 +1,7 @@
+using Microsoft.EntityFrameworkCore;
+using MoviesAPI.Data;
+using MoviesAPI.Services;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -7,6 +11,11 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnString")
+?? throw new InvalidOperationException("Connection stringDefaultConnString not found.")));
+
+
+builder.Services.AddScoped<MoviesService>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
