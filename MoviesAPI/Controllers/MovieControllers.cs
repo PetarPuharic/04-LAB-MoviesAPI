@@ -20,5 +20,29 @@ namespace MoviesAPI.Controllers
             return Ok();
         }
 
+        [HttpDelete("RemoveMovie/{id}")]
+        public IActionResult RemoveMovie(int id)
+        {
+            moviesService.removeMovie(id);
+            return Ok();
+        }
+        [HttpPut("UpdateMovie/{id}")]
+        public IActionResult UpdateMovie(int id, Data.Movie updatedMovie)
+        {
+            moviesService.updateMovie(id, updatedMovie);
+            return Ok();
+        }
+        [HttpGet("GetById/{id}")]
+        public IActionResult GetById(int id)
+        {
+            var movie = moviesService.getById(id);
+            return Ok(movie);
+        }
+        [HttpGet("GetAll")]
+        public IActionResult GetAll()
+        {
+            var movies = moviesService.getAll();
+            return Ok(movies);
+        }
     }
 }
